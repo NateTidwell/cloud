@@ -133,23 +133,14 @@ users:
       - ssh-rsa AAAA…
 
 package_update: true_
-
 _package_upgrade: true
-
 packages:
-
   - nginx
-
   - curl
-
   - git
 
-  
-
 runcmd:
-
   - systemctl enable nginx
-
   - systemctl start nginx
 
 ### 5.3 Save the spec and attach during clone
@@ -189,27 +180,19 @@ guestinfo.userdata.encoding = base64
 guestinfo.metadata = <base64 string>
 guestinfo.metadata.encoding = base64
 ```
-
 Power on → cloud-init loads config.
 
 ---
 
 # 7. Cloud-Init File Structure
-
 You normally provide 1–2 files:
-
 ## 7.1 user-data (main configuration)
-
 This contains all your cloud-config YAML.
-
 ## 7.2 meta-data (optional)
-
 Defines instance ID, hostname, network config.
 
 Example:
-
 instance-id: ubuntu-01
-
 local-hostname: ubuntu-01
 
 ---
@@ -219,23 +202,14 @@ local-hostname: ubuntu-01
 Ubuntu cloud images default to DHCP.\ To set static networking in cloud-init:
 
 network:
-
   version: 2
-
   ethernets:
-
     ens160:
-
       dhcp4: no
-
       addresses:
-
         - 10.0.50.10/24
-
       gateway4: 10.0.50.1
-
       nameservers:
-
         addresses: [8.8.8.8, 1.1.1.1]
 
 Place this inside user-data or meta-data.
@@ -245,21 +219,13 @@ Place this inside user-data or meta-data.
 # 9. Storage Configuration
 
 Cloud-init can set up partitions, filesystems, and mounts.
-
 Example adds a second disk `/dev/sdb`:
-
 fs_setup:
-
   - label: data
-
     filesystem: ext4
-
     device: /dev/sdb
 
-  
-
 mounts:
-
   - [ /dev/sdb, /mnt/data ]
 
 ---
@@ -269,21 +235,14 @@ mounts:
 Cloud-init can install apt packages:
 
 package_update: true
-
 packages:
-
   - docker.io
-
   - htop
-
   - unzip
-
 Or you can run commands:
 
 runcmd:
-
   - systemctl enable docker
-
   - systemctl start docker
 
 ---
